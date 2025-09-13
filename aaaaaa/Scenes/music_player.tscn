@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://lfpuryc2e2n3"]
+
+[ext_resource type="AudioStream" uid="uid://c41sipfwwtb4c" path="res://Sounds/game-gaming-minecraft-background-music-377647.mp3" id="1_ous86"]
+
+[node name="MusicPlayer" type="AudioStreamPlayer3D"]
+stream = ExtResource("1_ous86")
+autoplay = true

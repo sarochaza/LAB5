@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://js4gfhhend0w"]
+
+[ext_resource type="Script" uid="uid://cgv8fe3xlflto" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="PackedScene" uid="uid://dmgxyr1q7xkba" path="res://art/player.glb" id="1_v0iea"]
+[ext_resource type="PackedScene" uid="uid://t1vhbx186ah0" path="res://art/Adventurer.glb" id="3_6t5aa"]
+[ext_resource type="AudioStream" uid="uid://7qf83nskeh47" path="res://Sounds/coin.mp3" id="4_vgqql"]
+[ext_resource type="AudioStream" uid="uid://dvxx6n2pg10fd" path="res://Sounds/hit-7160.mp3" id="5_fkybt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6t5aa"]
+size = Vector3(0.474499, 1.79871, 0.405151)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vgqql"]
+size = Vector3(0.406616, 0.26001, 0.41687)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fkybt"]
+size = Vector3(0.001, 1.85107, 0.786133)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x3wgy"]
+size = Vector3(0.512512, 1.8335, 0.626099)
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
+collision_mask = 6
+script = ExtResource("1_cvnsp")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Character" parent="Pivot" instance=ExtResource("1_v0iea")]
+visible = false
+
+[node name="Root Scene" parent="Pivot" instance=ExtResource("3_6t5aa")]
+
+[node name="MobDetector" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="MobDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0527172, 0.925071, 0.0565796)
+shape = SubResource("BoxShape3D_6t5aa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.073015, 0.107429, 0.276794)
+shape = SubResource("BoxShape3D_vgqql")
+
+[node name="attack" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="attack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4995, 0.932394, 0.636213)
+shape = SubResource("BoxShape3D_fkybt")
+
+[node name="coin" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="coin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0279194, 0.888352, 0.0798366)
+shape = SubResource("BoxShape3D_x3wgy")
+debug_color = Color(0.992083, 0, 0.256926, 0.42)
+
+[node name="Coinsound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_vgqql")
+
+[node name="hitsound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_fkybt")
+
+[connection signal="body_entered" from="MobDetector" to="." method="_on_mob_detector_body_entered"]
+[connection signal="body_entered" from="attack" to="." method="_on_attack_body_entered"]
+[connection signal="body_entered" from="coin" to="." method="_on_coin_body_entered"]

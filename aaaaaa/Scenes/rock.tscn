@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://5uhr1bpipdxy"]
+
+[ext_resource type="PackedScene" uid="uid://q4idvbk3vek" path="res://art/Rock Large.glb" id="1_lgx4v"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lgx4v"]
+radius = 0.743083
+
+[node name="rock" type="CharacterBody3D"]
+collision_layer = 4
+
+[node name="pivot" type="Node3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="Root Scene" parent="pivot" instance=ExtResource("1_lgx4v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.169678, 0.0415039, -0.119629)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-0.0573407, 0.997416, -0.0432722, -0.479112, 0.0105342, 0.877691, 0.875879, 0.0710597, 0.47727, 0.0159805, -0.00150973, -0.0521112)
+shape = SubResource("SphereShape3D_lgx4v")
