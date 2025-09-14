@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://mui3ycan52o2"]
+
+[ext_resource type="PackedScene" uid="uid://br1w6j38oxub0" path="res://art/Coin.glb" id="1_2qo34"]
+[ext_resource type="Script" uid="uid://cd6h1oaq2gm7q" path="res://Scenes/coin.gd" id="1_jgi06"]
+[ext_resource type="AudioStream" uid="uid://7qf83nskeh47" path="res://Sounds/coin.mp3" id="3_g537i"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_jgi06"]
+height = 0.235035
+radius = 0.83252
+
+[node name="coin" type="CharacterBody3D" groups=["coin"]]
+script = ExtResource("1_jgi06")
+
+[node name="pivot" type="Node3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.0130758, 0.784541, 0)
+
+[node name="Root Scene" parent="pivot" instance=ExtResource("1_2qo34")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0348685, 0.832059, -0.000175595)
+shape = SubResource("CylinderShape3D_jgi06")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00435853, 0.801975, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0261513, 0.0300834, 0.0131663)
+shape = SubResource("CylinderShape3D_jgi06")
+
+[node name="Coinsound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_g537i")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

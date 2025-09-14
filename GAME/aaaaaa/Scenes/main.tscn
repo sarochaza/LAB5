@@ -1,0 +1,291 @@
+[gd_scene load_steps=21 format=3 uid="uid://dpjg6vaw4sk2v"]
+
+[ext_resource type="Script" uid="uid://bujgtek4xi6d7" path="res://Scripts/main.gd" id="1_8gbba"]
+[ext_resource type="PackedScene" uid="uid://js4gfhhend0w" path="res://Scenes/player.tscn" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://cw6ig6mwnlhfe" path="res://Scenes/mob.tscn" id="2_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://mui3ycan52o2" path="res://Scenes/coin.tscn" id="3_kry3j"]
+[ext_resource type="Script" uid="uid://drh4ujmfu0nbg" path="res://Scenes/score_label.gd" id="4_jjvhh"]
+[ext_resource type="Script" uid="uid://btvfewwu8thqm" path="res://Scenes/coinLabel.gd" id="6_21xkr"]
+[ext_resource type="PackedScene" uid="uid://ca836tlb8q04t" path="res://art/grass yellowing.glb" id="7_6bp64"]
+[ext_resource type="PackedScene" uid="uid://5uhr1bpipdxy" path="res://Scenes/rock.tscn" id="8_344ge"]
+[ext_resource type="PackedScene" uid="uid://cs386ludf86uq" path="res://Scenes/tree.tscn" id="9_ynf5e"]
+[ext_resource type="PackedScene" uid="uid://db8vhftl2ilq3" path="res://art/Rockk.glb" id="10_hptm8"]
+[ext_resource type="PackedScene" uid="uid://cvhvaew31pvrb" path="res://art/Campfire.glb" id="11_d1ilt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
+size = Vector3(98.8931, 2, 98.8933)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjvhh"]
+albedo_color = Color(4.57242e-07, 0.400102, 0.000365505, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+material = SubResource("StandardMaterial3D_jjvhh")
+size = Vector3(100, 2, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bo1nx"]
+albedo_color = Color(0.975313, 0.501955, 7.70092e-07, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8gbba"]
+material = SubResource("StandardMaterial3D_bo1nx")
+
+[sub_resource type="Curve3D" id="Curve3D_jjvhh"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -24.6526, 0, -21.5811, 0, 0, 0, 0, 0, 0, 23.1977, 0, -22.0661, 0, 0, 0, 0, 0, 0, 21.3938, 0, 21.693, 0, 0, 0, 0, 0, 0, -23.4883, 0, 21.3938),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_kry3j"]
+font_size = 30
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6bp64"]
+font_size = 35
+font_color = Color(1, 1, 0, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_21xkr"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -20.7438, 0, -16.0144, 0, 0, 0, 0, 0, 0, -16.4358, 0, -7.96038, 0, 0, 0, 0, 0, 0, -20.7438, 0, -1.65403e-06, 0, 0, 0, 0, 0, 0, -5.66592, 0, 2.80954, 0, 0, 0, 0, 0, 0, -12.7834, 0, 9.92706, 0, 0, 0, 0, 0, 0, -15.9378, 0, 5.75424, 0, 0, 0, 0, 0, 0, -18.4268, 0, 14.0242, 0, 0, 0, 0, 0, 0, -11.2006, 0, 14.4257, 0, 0, 0, 0, 0, 0, -10.7991, 0, 19.5643, 0, 0, 0, 0, 0, 0, 10.7189, 0, 17.9585, 0, 0, 0, 0, 0, 0, 21.6384, 0, 6.47686, 0, 0, 0, 0, 0, 0, 5.8211, 0, 5.99511, 0, 0, 0, 0, 0, 0, 15.5363, 0, -7.65437, 0, 0, 0, 0, 0, 0, 20.9158, 0, -20.0192, 0, 0, 0, 0, 0, 0, 3.33208, 0, -10.3843, 0, 0, 0, 0, 0, 0, -7.10576, 0, -19.0557),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 16
+
+[node name="Main" type="Node" node_paths=PackedStringArray("spawnplayer")]
+script = ExtResource("1_8gbba")
+mob_scene = ExtResource("2_jjvhh")
+coin_scene = ExtResource("3_kry3j")
+spawnplayer = NodePath("SpawnPlayer")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.296722, 0, -0.593628)
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.988849, -0.141189, 0.0473684, -0.0525495, -0.033194, 0.998067, -0.139344, -0.989426, -0.0402433, 42.7044, 40.342, 10)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_jjgbg")]
+
+[node name="CameraPivot" type="Marker3D" parent="."]
+transform = Transform3D(1, 1.40007e-08, -2.30287e-09, -1.40007e-08, 0.947317, -0.320299, -2.30287e-09, 0.320299, 0.947317, 1.39233, -1.94557, 0.350904)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, -1.82159e-09, 1.03899e-08, -1.00461e-08, 0.135854, 0.990729, -3.21621e-09, -0.990729, 0.135854, -2.31429, 24.5266, 10.0317)
+fov = 64.3742
+
+[node name="Cylinders" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.0932, 0, -16.2727)
+visible = false
+mesh = SubResource("CylinderMesh_8gbba")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.2685, 0, -15.8731)
+visible = false
+mesh = SubResource("CylinderMesh_8gbba")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.0932, 0, 15.7273)
+visible = false
+mesh = SubResource("CylinderMesh_8gbba")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.2685, 0, 16.1269)
+visible = false
+mesh = SubResource("CylinderMesh_8gbba")
+
+[node name="SpawnPath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_jjvhh")
+
+[node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath"]
+transform = Transform3D(0.0101346, 0, -0.999949, 0, 1, 0, 0.999949, 0, 0.0101346, -24.6526, 0, -21.5811)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = -545.0
+offset_top = -290.0
+offset_right = -424.0
+offset_bottom = -248.0
+text = "Score : 0"
+label_settings = SubResource("LabelSettings_kry3j")
+script = ExtResource("4_jjvhh")
+
+[node name="CoinLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = -365.0
+offset_top = -293.0
+offset_right = -225.0
+offset_bottom = -180.0
+text = "Coin : 0
+"
+label_settings = SubResource("LabelSettings_6bp64")
+script = ExtResource("6_21xkr")
+
+[node name="Retry" type="Button" parent="UserInterface"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.0
+offset_top = -49.5
+offset_right = 103.0
+offset_bottom = 49.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Press Enter to retry"
+
+[node name="SpawnPlayer" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+
+[node name="Rock" parent="." instance=ExtResource("8_344ge")]
+transform = Transform3D(5.98283, 3.50253e-07, 8.01285, -3.50253e-07, 10, -1.75596e-07, -8.01285, -1.75596e-07, 5.98283, -25.9512, 0, -15.2963)
+
+[node name="Rock" parent="Rock" instance=ExtResource("8_344ge")]
+transform = Transform3D(0.221724, 8.83345e-09, 0.202086, -8.83346e-09, 0.3, -3.42157e-09, -0.202086, -3.42157e-09, 0.221724, -0.810521, 9.51958e-07, 0.3943)
+
+[node name="rock" parent="Rock" instance=ExtResource("8_344ge")]
+transform = Transform3D(-0.353744, -2.89079e-08, -0.661336, 2.89079e-08, 0.75, -4.82462e-08, 0.661336, -4.82462e-08, -0.353744, 2.28819, 1.40472e-07, 3.43557)
+
+[node name="rock2" parent="Rock" instance=ExtResource("8_344ge")]
+transform = Transform3D(0.5, 8.88178e-16, -7.88861e-31, -8.88178e-16, 0.5, -4.44089e-16, 0, 4.44089e-16, 0.5, -2.56143, -4.51059e-08, 2.54042)
+
+[node name="rock3" parent="Rock" instance=ExtResource("8_344ge")]
+transform = Transform3D(0.0612888, -1.05944e-08, -0.242371, 1.05944e-08, 0.25, -8.24883e-09, 0.242371, -8.24883e-09, 0.0612888, 0.319954, 5.57066e-08, 2.53423)
+
+[node name="rock4" parent="Rock" instance=ExtResource("8_344ge")]
+transform = Transform3D(0.0755296, 1.2691e-08, 0.290336, -1.2691e-08, 0.3, -9.81192e-09, -0.290336, -9.81191e-09, 0.0755296, -2.2002, -2.39585e-08, 3.02422)
+
+[node name="grass" type="Node3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 15.993, -0.11796, 6.27212)
+
+[node name="grass yellowing" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.07894, -0.0213928, -1.40128)
+
+[node name="grass yellowing2" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(0.928712, 0.066799, 0.364736, -0.0416381, 0.996205, -0.0764273, -0.368457, 0.055792, 0.927969, -4.09843, -0.0220439, -0.708114)
+
+[node name="grass yellowing3" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.04994, -0.0220487, -0.294494)
+
+[node name="grass yellowing4" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(0.90858, 0.00593265, -0.41767, -0.041638, 0.996205, -0.0764273, 0.415631, 0.0868312, 0.905379, -3.60758, -0.0226999, 0.508362)
+
+[node name="grass yellowing5" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6267, -0.0208326, -1.59431)
+
+[node name="grass yellowing6" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(0.928712, 0.066799, 0.364736, -0.0416381, 0.996205, -0.0764273, -0.368457, 0.055792, 0.927969, -3.20342, -0.0214837, -2.23348)
+
+[node name="grass yellowing7" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.143316, -0.0214885, -1.08216)
+
+[node name="grass yellowing8" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(0.614273, 0.0858532, 0.78441, -0.0416381, 0.996205, -0.0764273, -0.787994, 0.0142858, 0.615516, -3.90774, -0.0214837, -2.08338)
+
+[node name="grass yellowing9" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.14445, -0.0213928, 0.361791)
+
+[node name="grass yellowing10" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(-0.918702, -1.72639e-08, -0.394952, 1.72639e-08, 1, -8.38691e-08, 0.394952, -8.38691e-08, -0.918702, 1.17249, -0.0213927, -1.09084)
+
+[node name="grass yellowing11" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(-0.707686, -0.0834036, -0.701587, -0.041638, 0.996205, -0.0764273, 0.705299, -0.0248739, -0.708473, 0.940861, -0.0220439, -1.58622)
+
+[node name="grass yellowing12" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(-0.918702, -1.72639e-08, -0.394952, 1.72639e-08, 1, -8.38691e-08, 0.394952, -8.38691e-08, -0.918702, 0.708727, -0.0220488, -2.0962)
+
+[node name="grass yellowing13" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(-0.998868, -0.0397445, 0.0261322, -0.0416381, 0.996205, -0.0764274, -0.0229956, -0.0774289, -0.996733, 0.00946569, -0.0227, -2.50993)
+
+[node name="grass yellowing14" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(-0.918702, -1.72639e-08, -0.394952, 1.72639e-08, 1, -8.38691e-08, 0.394952, -8.38691e-08, -0.918702, 0.857484, -0.0208325, -0.585752)
+
+[node name="grass yellowing15" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.583341, -0.0220487, -1.47821)
+
+[node name="grass yellowing16" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(0.726299, -3.00463e-08, -0.687379, 3.00463e-08, 1, -1.19639e-08, 0.687379, -1.19639e-08, 0.726299, 0.634628, -0.0213928, 0.00846022)
+
+[node name="grass yellowing17" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(0.927792, 0.0101657, -0.37296, -0.041638, 0.996205, -0.0764273, 0.370767, 0.0864379, 0.924694, 0.144004, -0.022044, 0.498507)
+
+[node name="grass yellowing18" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(0.660028, 3.28378e-08, 0.751241, -3.28378e-08, 1, -1.48607e-08, -0.751241, -1.48607e-08, 0.660028, -3.55436, -0.0213928, 0.839215)
+
+[node name="grass yellowing19" parent="grass" instance=ExtResource("7_6bp64")]
+transform = Transform3D(0.336176, 0.0860025, 0.937864, -0.0416381, 0.996205, -0.0764273, -0.940878, -0.0133579, 0.338481, -3.04649, -0.022044, 1.31137)
+
+[node name="coinPath" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.187304)
+curve = SubResource("Curve3D_21xkr")
+
+[node name="coinFollow3D" type="PathFollow3D" parent="coinPath"]
+transform = Transform3D(-0.881784, 0, -0.471652, 0, 1, 0, 0.471652, 0, -0.881784, -20.7438, 0, -16.0144)
+
+[node name="coinTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Tree" type="Node3D" parent="."]
+
+[node name="Tree" parent="Tree" instance=ExtResource("9_ynf5e")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -23.2257, 7.43479, -6.76976)
+
+[node name="Tree2" parent="Tree" instance=ExtResource("9_ynf5e")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 7.07734, 9.83798, -7.99649)
+
+[node name="Tree3" parent="Tree" instance=ExtResource("9_ynf5e")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 10.2073, 9.83798, 12.5439)
+
+[node name="GroundRock" type="Node3D" parent="."]
+
+[node name="rock" parent="GroundRock" instance=ExtResource("10_hptm8")]
+transform = Transform3D(2.80184, -1.24786e-07, -2.85476, 1.24786e-07, 4, -5.23731e-08, 2.85476, -5.23731e-08, 2.80184, -18.7052, 0, 5.70777)
+
+[node name="rock2" parent="GroundRock" instance=ExtResource("10_hptm8")]
+transform = Transform3D(-4.65042, 8.02859e-08, 1.83673, -8.02859e-08, 5, -4.21833e-07, -1.83673, -4.21833e-07, -4.65042, 15.2665, 0, -0.210824)
+
+[node name="rock3" parent="GroundRock" instance=ExtResource("10_hptm8")]
+transform = Transform3D(2.80184, -1.24786e-07, -2.85476, 1.24786e-07, 4, -5.23731e-08, 2.85476, -5.23731e-08, 2.80184, 9.47101, 0, 18.1187)
+
+[node name="campfire" type="Node3D" parent="."]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, -1.84914, 0, -9.61552)
+
+[node name="Campfire" parent="campfire" instance=ExtResource("11_d1ilt")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -7.51392, 0.913607, 7.45773)
+
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="pressed" from="UserInterface/Retry" to="." method="_on_retry_pressed"]
+[connection signal="timeout" from="coinTimer" to="." method="_on_coin_timer_timeout"]
