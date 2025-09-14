@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://cw6ig6mwnlhfe"]
+
+[ext_resource type="PackedScene" uid="uid://byjxwoc5eomr8" path="res://art/mob.glb" id="1_h5js2"]
+[ext_resource type="Script" uid="uid://cqdfrpg0qgud2" path="res://Scripts/mob.gd" id="1_u8nqw"]
+[ext_resource type="PackedScene" uid="uid://jyg7il2lspor" path="res://art/Sports Car.glb" id="3_b44se"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u8nqw"]
+size = Vector3(2.11291, 1.18445, 4.11319)
+
+[node name="Mob" type="CharacterBody3D" groups=["mob"]]
+transform = Transform3D(1.49999, 2.34594e-10, 0.00536688, -2.34594e-10, 1.5, -4.21192e-13, -0.00536688, -4.18167e-13, 1.49999, 0, 0, 0)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_u8nqw")
+min_speed = 15
+
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(-0.999933, -1.62969e-08, -0.0115712, 6.74777e-08, 1, -7.23954e-06, 0.0115712, -7.23984e-06, -0.999933, 0, 0, 0)
+
+[node name="Charater" parent="Pivot" instance=ExtResource("1_h5js2")]
+visible = false
+
+[node name="Sports Car" parent="Pivot" instance=ExtResource("3_b44se")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.999997, 0, -1.76951e-08, 3.97904e-13, 1, -4.6839e-11, 1.76951e-08, 0, 0.999997, 0.0156059, 0.573379, -0.122705)
+shape = SubResource("BoxShape3D_u8nqw")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0259261, 0, 0.0777779)
+aabb = AABB(-1.40908, -1, -1.99245, 2.81815, 2, 3.9849)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
